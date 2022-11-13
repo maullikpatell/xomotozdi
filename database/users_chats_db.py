@@ -20,7 +20,7 @@ class ChatDatabase:
         chat = self.new_chat(id)
         await self.col.insert_one(chat)
 
-    async def is_user_exist(self, id):
+    async def is_chat_exist(self, id):
         chat = await self.col.find_one({'id': int(id)})
         return bool(chat)
 
@@ -35,6 +35,8 @@ class ChatDatabase:
         await self.col.delete_many({'id': int(chat_id)})
 
     async def set_api(self, chat_id, api):
+        if not (await self.is_chat_exist(chat_id)):
+            await self.add_chat(chat_id)
         await self.col.update_one({'id': chat_id}, {'$set': {'api': api}})
 
     async def get_api(self, chat_id):
