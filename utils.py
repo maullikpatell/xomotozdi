@@ -379,7 +379,7 @@ def humanbytes(size):
 async def get_shortlink(link, api=""):
     if not api:
         api = SHORTENER_API
-    shortz = shortzy.Shortzy(api, "atglinks.com")
+    shortz = shortzy.Shortzy(api, "dtglinks.in")
     if api:
         if LONG_DROPLINK_URL == "True" or LONG_DROPLINK_URL is True:
             return await shortz.get_quick_link(link)
